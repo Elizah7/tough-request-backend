@@ -8,6 +8,7 @@ const cartRoute = require("./routes/cart.route");
 const { Logger } = require("./middlewares/logger");
 const { auth } = require("./middlewares/auth");
 const wishlistRoute = require("./routes/wishlist.route");
+const bannedRoutes = require("./routes/banuserroute");
 require("dotenv").config();
 
 const app = express();
@@ -17,10 +18,11 @@ app.use(express.json());
 app.use("/user", userRouter)
 app.use("/admin",adminRouter)
 app.use("/product", productRouter)
-app.use("/wishlist",wishlistRoute)
 app.use(auth)
 app.use(Logger)
+app.use("/wishlist",wishlistRoute)
 app.use("/cart",cartRoute)
+app.use("/banneduser",bannedRoutes)
 app.get("/", (req, res) => {
   res.status(200).send("Home page");
 });

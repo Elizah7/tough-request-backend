@@ -11,7 +11,7 @@ productRouter.get("/", async (req, res) => {
         const data = await productModel.find()
         res.send({ Data: data});
     } catch (e) {
-        res.send(e)
+        res.send({msg:e.message})
     }
 })
 

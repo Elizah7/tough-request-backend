@@ -18,7 +18,7 @@ cartRoute.get("/", async (req, res) => {
     
 
     } catch (e) {
-        res.send(e)
+        res.send({msg:e.message})
     }
 })
 

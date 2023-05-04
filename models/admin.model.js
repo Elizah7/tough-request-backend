@@ -5,6 +5,9 @@ const adminSchema = mongoose.Schema({
     email: String,
     phone_number:String,
     password: String,
+    month:String,
+    day:String,
+    year:String
 })
 
 const adminModel = mongoose.model("adminuser", adminSchema)

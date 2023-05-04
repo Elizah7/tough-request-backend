@@ -18,7 +18,7 @@ adminRouter.get("/", auth, async (req, res) => {
             res.send({ msg: `No user found` })
         }
     } catch (e) {
-        res.send({ msg: "Error", reason: e })
+        res.send({ msg: "Error", reason: e.message })
     }
 })
 
@@ -40,7 +40,7 @@ adminRouter.post("/register", async (req, res) => {
         }
     } catch (e) {
         console.log(e)
-        res.send(`Registration Error: - ${e}`)
+        res.send({msg:e.message})
     }
 })
 adminRouter.post("/login", async (req, res) => {
@@ -62,7 +62,7 @@ adminRouter.post("/login", async (req, res) => {
             res.send({ msg: `Email ${email} does not Exist. Try Registring` })
         }
     } catch (e) {
-        res.send({ msg: "Error", reason: e })
+        res.send({msg:e.message})
     }
 })
 
