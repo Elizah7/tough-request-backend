@@ -7,7 +7,7 @@ const { adminauth } = require("../middlewares/adminauth")
 
 const userRouter = express.Router()
 
-userRouter.get("/", adminauth, async (req, res) => {
+userRouter.get("/", auth, async (req, res) => {
     try {
         let User = await UserModel.find()
         if (User.length > 0) {
