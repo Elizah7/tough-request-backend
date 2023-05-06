@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken")
 const auth =  (req, res, next) => {
    const token = req.headers.authorization
    if (token) {
-      const decoded = jwt.verify(token, "tough-request")
+      const decoded = jwt.verify(token,"tough-request")
+      console.log(decoded)
       if (decoded) {
          console.log("decoded",decoded)
          console.log("userid",decoded.userId)

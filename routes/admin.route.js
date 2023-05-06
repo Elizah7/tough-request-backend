@@ -13,7 +13,6 @@ adminRouter.get("/", auth, async (req, res) => {
         let User = await adminModel.find()
         if (User.length > 0) {
             res.send({ users: User });
-
         } else {
             res.send({ msg: `No user found` })
         }

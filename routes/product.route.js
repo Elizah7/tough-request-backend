@@ -14,7 +14,24 @@ productRouter.get("/", async (req, res) => {
         res.send({msg:e.message})
     }
 })
+productRouter.get("/:id", async (req, res) => {
+  const id = req.params.id
+    try {
+        const data = await productModel.findById(id)
+        res.send({ Data: data});
+    } catch (e) {
+        res.send({msg:e.message})
+    }
+})
+productRouter.get("/search", async (req, res) => {
 
+    try {
+        const data = await productModel.find()
+        res.send({ Data: data});
+    } catch (e) {
+        res.send({msg:e.message})
+    }
+})
 productRouter.post("/add",auth,async (req, res) => {
     const payload = req.body
     try {
@@ -26,7 +43,7 @@ productRouter.post("/add",auth,async (req, res) => {
     }
 })
 
-productRouter.patch("/update/:id", async (req, res) => {
+productRouter.patch("/update/:id", auth, async (req, res) => {
     const payload = req.body
     const id = req.params.id;
     try {
@@ -38,7 +55,7 @@ productRouter.patch("/update/:id", async (req, res) => {
     }
 })
 
-productRouter.delete("/delete/:id", async (req, res) => {
+productRouter.delete("/delete/:id", auth, async (req, res) => {
     const id = req.params.id;
     try {
         await productModel.findByIdAndDelete(id);
