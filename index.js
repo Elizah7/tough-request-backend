@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
   res.status(200).send("Home page");
 });
 
-app.listen(process.env.port, async () => {
+app.listen(8787, async () => {
   try {
     await connection;
     console.log("Connected to Mongo Atlas");
