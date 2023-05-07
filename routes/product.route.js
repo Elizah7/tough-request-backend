@@ -2,6 +2,7 @@ const express = require("express")
 const jwt = require("jsonwebtoken");
 const productModel = require("../models/product.model");
 const { auth } = require("../middlewares/auth");
+const { adminauth } = require("../middlewares/adminauth");
 
 const productRouter = express.Router()
 
@@ -28,6 +29,7 @@ productRouter.get("/search", async (req, res) => {
         const data = await productModel.find(queryobj).sort(sortobj)
         res.send({ Data: data,datalength : data.length});
     } catch (e) {
+        console.log("error",e)
         res.send({msg:e.message})
     }
 })
@@ -77,8 +79,7 @@ productRouter.post("/add",auth,async (req, res) => {
     }
 })
 
-
-productRouter.patch("/update/:id", async (req, res) => {
+productRouter.patch("/update/:id",auth, async (req, res) => {
     const payload = req.body
     const id = req.params.id;
     try {
@@ -90,7 +91,7 @@ productRouter.patch("/update/:id", async (req, res) => {
     }
 })
 
-productRouter.delete("/delete/:id", async (req, res) => {
+productRouter.delete("/delete/:id",auth, async (req, res) => {
     const id = req.params.id;
     try {
         await productModel.findByIdAndDelete(id);

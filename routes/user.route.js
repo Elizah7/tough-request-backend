@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 const UserModel = require("../models/user.model")
 const { auth } = require("../middlewares/auth")
+const { adminauth } = require("../middlewares/adminauth")
 
 const userRouter = express.Router()
 
