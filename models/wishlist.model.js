@@ -11,7 +11,8 @@ const wishlistSchema = mongoose.Schema({
     discounted_price:String,
     description:String,
     price:String,
-    userId:String
+    userId:String,
+    productId:string
 })
 
 const wishlistModel = mongoose.model("wishlistItem", wishlistSchema)
