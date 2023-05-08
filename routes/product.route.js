@@ -45,6 +45,9 @@ productRouter.get("/", async (req, res) => {
     if(query.color){
         queryobj["color"] = query.color;
     }
+    if(query.category){
+        queryobj["category"] = query.category;
+    }
     if(query["price_gt"]!=undefined&&query["price_lt"]!=undefined){
         $and.push({"$expr" : {"$gt" : [{"$toInt" :"$price"} , +query.price_gt]}})
         $and.push({"$expr" : {"$lt" : [{"$toInt" :"$price"} , +query.price_lt]}})
@@ -70,6 +73,7 @@ productRouter.get("/singleproduct/:id", async (req, res) => {
 
 productRouter.post("/add",auth,async (req, res) => {
     const payload = req.body
+    console.log(payload);
     try {
         const newPost = new productModel(payload);
         await newPost.save()

@@ -18,6 +18,7 @@ wishlistRoute.get("/", async (req, res) => {
 
 wishlistRoute.post("/add", async (req, res) => {
     const payload = req.body;
+    console.log(payload)
     const post = await wishlistModel.findOne({ userId: req.body.userId,title : req.body.title });
     if (post) {
         res.send({ "msg": "product already exisists in wishlist" })
