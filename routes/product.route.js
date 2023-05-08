@@ -53,9 +53,10 @@ productRouter.get("/", async (req, res) => {
         $and.push({"$expr" : {"$lt" : [{"$toInt" :"$price"} , +query.price_lt]}})
         queryobj["$and"] = $and;
     }
+    console.log(queryobj,sortobj)
     try {
-        const data = await productModel.find()
-        res.send({ Data: data});
+        const data = await productModel.find(queryobj).sort(sortobj)
+        res.send({ DataLength: data.length,Data:data});
     } catch (e) {
         res.send({msg:e.message})
     }
