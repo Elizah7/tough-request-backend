@@ -8,7 +8,8 @@ const userSchema = mongoose.Schema({
     address:Object,
     month:String,
     day:String,
-    year:String
+    year:String,
+    address:Object
 })
 
 const UserModel=mongoose.model("user", userSchema)

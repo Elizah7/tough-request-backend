@@ -83,11 +83,15 @@ userRouter.post("/login", async (req, res) => {
     }
 })
 userRouter.patch("/updateaddress/:id", async (req, res) => {
-    const id = req.params.id
+    const id = req.params.id;
+    console.log(req.body,id);
     try {
         await UserModel.findByIdAndUpdate(id,req.body)
-        res.send({msg:"Address has been updated"})
+        const user = await UserModel.findOne({_id:id})
+        user.address = req.body;
+        res.send({msg:"Address has been updated",user : user})
     } catch (e) {
+        console.log(e)
         res.send({ msg: "Error", reason: e.message })
     }
 })
