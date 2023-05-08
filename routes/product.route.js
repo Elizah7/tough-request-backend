@@ -75,7 +75,8 @@ productRouter.get("/singleproduct/:id", async (req, res) => {
 productRouter.post("/add",adminauth,async (req, res) => {
     const payload = req.body
     console.log(payload);
-    const post = await wishlistModel.findOne({ title : req.body.title });
+    try{
+    const post = await productModel.findOne({ title : req.body.title });
     if (post) {
         res.send({ "msg": "product already exisists in Products" })
     } else {
@@ -87,6 +88,9 @@ productRouter.post("/add",adminauth,async (req, res) => {
        res.send({ "msg": e.message })
     }
    }
+}catch(err){
+    console.log(err);
+}
 })
 
 productRouter.patch("/update/:id",adminauth, async (req, res) => {
