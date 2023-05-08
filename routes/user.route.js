@@ -7,7 +7,7 @@ const { adminauth } = require("../middlewares/adminauth")
 
 const userRouter = express.Router()
 
-userRouter.get("/", auth, async (req, res) => {
+userRouter.get("/", adminauth, async (req, res) => {
     try {
         let User = await UserModel.find()
         if (User.length > 0) {
@@ -20,7 +20,7 @@ userRouter.get("/", auth, async (req, res) => {
     }
 })
 
-userRouter.get("/banned/:id", auth, async (req, res) => {
+userRouter.get("/banned/:id", adminauth, async (req, res) => {
     const id = req.params.id
     try {
         let User = await UserModel.findById(id)
@@ -89,6 +89,28 @@ userRouter.patch("/updateaddress/:id", async (req, res) => {
         res.send({msg:"Address has been updated"})
     } catch (e) {
         res.send({ msg: "Error", reason: e.message })
+    }
+})
+
+userRouter.patch("/update/:id",adminauth, async (req, res) => {
+    const payload = req.body
+    const id = req.params.id;
+    try {
+        await UserModel.findByIdAndUpdate(id, { ...payload });
+        let UpdatePost = await UserModel.findById(id)
+        res.send({ msg: `User with ${id} Updated`, Updated_Post: UpdatePost })
+    } catch (e) {
+        res.send({ "msg": e.message })
+    }
+})
+
+userRouter.delete("/delete/:id",adminauth, async (req, res) => {
+    const id = req.params.id;
+    try {
+        await UserModel.findByIdAndDelete(id);
+        res.send({ msg: `User with ${id} Deleted` })
+    } catch (e) {
+        res.send({ "msg": e.message })
     }
 })
 

@@ -72,19 +72,24 @@ productRouter.get("/singleproduct/:id", async (req, res) => {
       }
   })
 
-productRouter.post("/add",auth,async (req, res) => {
+productRouter.post("/add",adminauth,async (req, res) => {
     const payload = req.body
     console.log(payload);
-    try {
+    const post = await wishlistModel.findOne({ title : req.body.title });
+    if (post) {
+        res.send({ "msg": "product already exisists in Products" })
+    } else {
+     try {
         const newPost = new productModel(payload);
         await newPost.save()
         res.send({ msg: "Product Saved", New_Post: newPost })
-    } catch (e) {
-        res.send({ "msg": e.message })
+     } catch (e) {
+       res.send({ "msg": e.message })
     }
+   }
 })
 
-productRouter.patch("/update/:id",auth, async (req, res) => {
+productRouter.patch("/update/:id",adminauth, async (req, res) => {
     const payload = req.body
     const id = req.params.id;
     try {
@@ -96,7 +101,7 @@ productRouter.patch("/update/:id",auth, async (req, res) => {
     }
 })
 
-productRouter.delete("/delete/:id",auth, async (req, res) => {
+productRouter.delete("/delete/:id",adminauth, async (req, res) => {
     const id = req.params.id;
     try {
         await productModel.findByIdAndDelete(id);
