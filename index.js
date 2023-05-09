@@ -9,6 +9,7 @@ const { Logger } = require("./middlewares/logger");
 const { auth } = require("./middlewares/auth");
 const wishlistRoute = require("./routes/wishlist.route");
 const bannedRoutes = require("./routes/banuserroute");
+const { adminOrderRoute } = require("./routes/admin.order.route");
 require("dotenv").config();
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/user", userRouter)
 app.use("/admin",adminRouter)
 app.use("/product", productRouter)
+app.use("/adminorder",adminOrderRoute)
 app.use(auth)
 app.use("/wishlist",wishlistRoute)
 app.use("/cart",cartRoute)
